@@ -31,7 +31,7 @@ class PredictionPipeline:
         self.prediction_pipeline_config = PredictionPipelineConfig()
 
 
-
+# function is for file
     def save_input_files(self)-> str:
 
         """
