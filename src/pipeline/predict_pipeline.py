@@ -6,7 +6,8 @@ from src.logger import logging
 
 from src.exception import CustomException
 import sys
-from flask import request
+
+
 from src.constant import *
 from src.utils.main_utils import MainUtils
 
@@ -24,12 +25,12 @@ class PredictionPipelineConfig:
 
 
 class PredictionPipeline:
-    def __init__(self, request: request):
+    def __init__(self, request):
 
         self.request = request
         self.utils = MainUtils()
         self.prediction_pipeline_config = PredictionPipelineConfig()
-
+    
 
 
     def save_input_files(self)-> str:
@@ -50,6 +51,7 @@ class PredictionPipeline:
             pred_file_input_dir = "prediction_artifacts"
             os.makedirs(pred_file_input_dir, exist_ok=True)
 
+            # Retrieving the file from the request
             input_csv_file = self.request.files['file']
             pred_file_path = os.path.join(pred_file_input_dir, input_csv_file.filename)
             
@@ -60,6 +62,7 @@ class PredictionPipeline:
             return pred_file_path
         except Exception as e:
             raise CustomException(e,sys)
+
 
     def predict(self, features):
             try:
